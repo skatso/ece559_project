@@ -1,0 +1,65 @@
+-- The FIFO takes in 8 bits at a time, and will remove elements on a first in, first out basis.
+-- The current FIFO implementation has 5 blocks
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+	 
+entity  is
+    port (	clk			: in std_logic;
+				lo_in			: in std_logic_vector(7 downto 0);
+				hi_in 		: in std_logic_vector(7 downto 0);
+				lo_read		: in std_logic;
+				hi_read 		: in std_logic;
+				lo_sclr		: in std_logic;
+				hi_sclr 		: in std_logic;
+				lo_read_all	: in std_logic;
+				hi_read_all : in std_logic;
+				lo_write		: in std_logic;
+				hi_write 	: in std_logic;
+				lo_empty 	: out std_logic;
+				hi_empty		: out std_logic;
+				lo_full 		: out std_logic;
+				hi_full 		: out std_logic;
+				lo_out	 	: out std_logic_vector(7 downto 0);
+				hi_out		: out std_logic_vector(7 downto 0)
+			);    
+end fifo;
+
+architecture a1 of fifo is
+
+	component finalfifo
+		port  ( 	
+			clock	 	: in std_logic;
+			data	 	: in std_logic_vector(7 downto 0);
+			rdreq	 	: in std_logic;
+			wrreq	 	: in std_logic;
+			empty	 	: out std_logic;
+			full	 	: out std_logic;
+			q	 		: out std_logic_vector(7 downto 0)
+		);
+	end component;
+	
+	begin
+
+		low_pri : finalfifo PORT MAP (
+			clock	 	=> clk,
+			data	 	=> lo_in,
+			rdreq	 	=> lo_read,
+			wrreq	 	=> lo_write,
+			empty	 	=> lo_empty,
+			full	 	=> lo_full,
+			q	 		=> lo_out
+		);
+
+		
+		high_pri : finalfifo PORT MAP (
+			clock	 	=> clk,
+			data	 	=> hi_in,
+			rdreq	 	=> hi_read,
+			wrreq	 	=> hi_write,
+			empty	 	=> hi_empty,
+			full	 	=> hi_full,
+			q	 		=> hi_out
+		);
+	
+end a1; 

@@ -1,0 +1,28 @@
+library ieee;
+use iee.std_logic_1164.all
+
+entity fifoBlock
+		port  ( 	clock 			: in std_logic;
+					reset 			: in std_logic;
+					write_enable	: in std_logic;
+					input 			: in std_logic_vector(7 downto 0);
+					output 			: out std_logic_vector(7 downto 0)
+				);
+				
+end fifoBlock;
+
+architecture a1 of fifoBlock is
+
+	signal resetVals				: "00000000;"
+
+begin
+		process(clock, reset, write_enable, input, output)
+		begin
+			if reset = '1' then
+				output <= resetVals;
+			elsif rising_edge(clock) and write_enable = '1' then
+				output <= input
+			end if;
+		end process
+
+end a1;

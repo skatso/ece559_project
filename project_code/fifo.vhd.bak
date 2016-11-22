@@ -1,0 +1,74 @@
+-- The FIFO takes in 8 bits at a time, and will remove elements on a first in, first out basis.
+-- The current FIFO implementation has 5 blocks
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+	 
+entity fifo is
+    Port (	clock				: in std_logic;
+				reset				: in std_logic;
+				write_enable	: in std_logic;
+				pop_off 			: in std_logic;
+				check_is_empty	: in std_logic;
+				input 			: in std_logic_vector(7 downto 0);
+				output			: out std_logic_vector(7 downto 0);
+				isEmtpy 			: out std_logic
+    );    
+end fifo;
+
+architecture a1 of fifo is
+
+	constant numBlocks	: integer := 5; -- local constant declaration
+	
+	type blockArray is array (0 to numBlocks) of std_logic_vector(7 downto 0);
+	signal values 			: blockArray;
+	
+	component fifoBlock
+		port  ( 	clock 			: in std_logic;
+					reset 			: in std_logic;
+					write_enable	: in std_logic;
+					input 			: in std_logic_vector(7 downto 0);
+					output 			: out std_logic_vector(7 downto 0)
+				);
+	end component;
+	
+	component isFifoEmpty
+		port	( 	clock 			: in std_logic;
+					check_is_empty : in std_logic;
+					input 			: in std_logic_vector(7 downto 0);
+					is_empty 		: out std_logic
+				);
+	end component;
+	
+	
+	begin
+		fifo_blocks:
+		for i in 0 to numBlocks generate
+			
+			-- Connect the first block to the entity's input
+			first_block: if i=0 generate
+				first: fifoBlock port map
+					(clock, reset, write_enable, input, values(i));
+			end generate first_block;
+			
+			-- Connect the middle blocks to each other's outpus
+			other_blocks: if (i>0 and i<(numBlocks-1)) generate 
+				blocks: fifoBlock port map
+					(clock, reset, write_enable, values(i), values(i+1));
+			end generate other_blocks;
+			
+			-- Connect the last block to the entity's output
+			last_block: if i=numBlocks-1 generate
+				last: fifoBlock port map
+					(clock, reset, write_enable, values(i), output);
+			end generate last_block;
+			
+		end generate fifo_blocks;
+	
+		-- instantiate the isFifoEmpty block
+--		isEmptyTester: isFifoEmpty port map (
+--			clock 			=> clock,
+--			check_is_empty => check_is_empty,
+--			input 			= 
+--		);
+end a1; 

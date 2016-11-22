@@ -1,0 +1,71 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/altera_lite/16.0/ece559/project/simulation/qsim
+vfifo
+Z1 !s110 1479794512
+!i10b 1
+!s100 F<7ZZz`]5]1L=k[dMX_`C0
+I[W5cC0fUBHD_m9bgnj5zM3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dC:/altera_lite/16.0/ece559/project/ece559_final_project/simulation/qsim
+w1479794511
+Z4 8testing.vo
+Z5 Ftesting.vo
+Z6 L0 32
+Z7 OV;L;10.4d;61
+r1
+!s85 0
+31
+Z8 !s108 1479794512.000000
+Z9 !s107 testing.vo|
+Z10 !s90 -work|work|testing.vo|
+!i113 1
+Z11 o-work work
+vfifo_vlg_vec_tst
+R1
+!i10b 1
+!s100 1fT4^M52:QM82BnH4V]UK3
+IcLG>>N5PM]FnjBR;lGnmW1
+R2
+R3
+w1479794509
+8fifoTesting.vwf.vt
+FfifoTesting.vwf.vt
+L0 30
+R7
+r1
+!s85 0
+31
+R8
+!s107 fifoTesting.vwf.vt|
+!s90 -work|work|fifoTesting.vwf.vt|
+!i113 1
+R11
+vfifoBlock
+!s110 1479158660
+!i10b 1
+!s100 5OMhSXa@e=0ZDE`j?2QUd3
+I:>lGHFM1g6M=IBK?jabZ[1
+R2
+R0
+w1479158659
+R4
+R5
+R6
+R7
+r1
+!s85 0
+31
+!s108 1479158660.000000
+R9
+R10
+!i113 1
+R11
+nfifo@block
